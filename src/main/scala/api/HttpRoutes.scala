@@ -12,6 +12,8 @@ import zio.http.model.{Method, Status}
 object HttpRoutes {
   val app: HttpApp[CustomerRepository, Response] =
     Http.collectZIO[Request] {
+      /** Добавить проверку JWT токена
+        */
       case Method.GET -> !! / "customers" =>
         CustomerRepository
           .findAll()
@@ -24,10 +26,12 @@ object HttpRoutes {
             case Left(e)          => Response.status(Status.InternalServerError)
           }
 
-      case req @ Method.POST -> !! / "add" / "customer" => ???
+      /** Проверяем учетную запись на наличие в БД и выдаем JWT-токен
+        */
+      case req @ Method.POST -> !! / "auth" / "login" => ???
 
-      case req @ Method.PUT -> !! / "update" / "customer" => ???
-
-      case req @ Method.DELETE -> !! / "delete" / "customer" => ???
+      /** Сохраняем в БД логин и зашифрованный пароль
+        */
+      case req @ Method.PUT -> !! / "auth" / "register" => ???
     }
 }
