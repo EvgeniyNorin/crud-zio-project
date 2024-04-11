@@ -34,11 +34,9 @@ final class CustomerRepositoryImpl(
       execute(query)
         .provideSomeLayer(driverLayer)
         .unit
-
   }
 
-  override def updateCustomer(customer: Customer): ZIO[Any, Throwable, Unit] =
-    ???
+  override def updateCustomer(customer: Customer): ZIO[Any, Throwable, Unit] = ???
 
   override def delete(id: Int): ZIO[Any, Throwable, Unit] = ???
 }
